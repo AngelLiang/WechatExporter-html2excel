@@ -1,1 +1,1 @@
-pyinstaller main.spec --clean
+poetry run pyinstaller main.spec --clean

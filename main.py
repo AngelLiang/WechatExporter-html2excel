@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
 from PySide6 import QtCore, QtWidgets
-__version__ = 'V1.0'
 
 
 ILLEGAL_CHARACTERS_RE = re.compile(r'[\000-\010]|[\013-\014]|[\016-\037]')
@@ -84,7 +83,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.filepath, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,  # 父窗口对象
             "选择文件",  # 标题
-            ".",  # 起始目录
+            "",  # 起始目录
             "文件类型 (*.html)"  # 选择类型过滤项，过滤内容在括号中
         )
         self.filePathText.setText(self.filepath)
