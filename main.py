@@ -14,33 +14,32 @@ ILLEGAL_CHARACTERS_RE = re.compile(r'[\000-\010]|[\013-\014]|[\016-\037]')
 
 # os.makedirs('input_data', exist_ok=True)
 # INPUT_PATH = glob.glob('input_data/*.html')
-OUTPUT_PATH = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'output')
-
-os.makedirs(OUTPUT_PATH, exist_ok=True)
+# OUTPUT_PATH = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'output')
+# os.makedirs(OUTPUT_PATH, exist_ok=True)
 
 
 def html2excel_handle(filepath):
-    html_doc = open(filepath, encoding='utf8')
-    soup = BeautifulSoup(html_doc, 'html.parser')
-    all_data = soup.find_all('span', class_='dspname left')
+    with open(filepath, encoding='utf8') as html_doc:
+        soup = BeautifulSoup(html_doc, 'html.parser')
+        all_data = soup.find_all('span', class_='dspname left')
 
-    wb = Workbook()
-    ws = wb.active
-    for item in all_data:
-        # 名称
-        # print(f'{item.text} {item.next_sibling}')
-        content = item.parent.next_sibling.next_sibling.find('span')
-        text = ''
-        if content:
-            text = content.text
-            text = ILLEGAL_CHARACTERS_RE.sub(r'', text)
-        ws.append([item.next_sibling, item.text, text])
+        wb = Workbook()
+        ws = wb.active
+        for item in all_data:
+            # 名称
+            # print(f'{item.text} {item.next_sibling}')
+            content = item.parent.next_sibling.next_sibling.find('span')
+            text = ''
+            if content:
+                text = content.text
+                text = ILLEGAL_CHARACTERS_RE.sub(r'', text)
+            ws.append([item.next_sibling, item.text, text])
 
-    dirname = os.path.dirname(filepath)
-    name = os.path.basename(filepath)
-    output_filepath = os.path.join(dirname, name+'.xlsx')
-    wb.save(output_filepath)
-    return output_filepath
+        dirname = os.path.dirname(filepath)
+        name = os.path.basename(filepath)
+        output_filepath = os.path.join(dirname, name+'.xlsx')
+        wb.save(output_filepath)
+        return output_filepath
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -75,7 +74,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar = QtWidgets.QStatusBar()
         self.statusBar.showMessage('https://github.com/AngelLiang/WechatExporter-html2excel')
         self.setStatusBar(self.statusBar)
-
 
     @QtCore.Slot()
     def html2excel(self):
