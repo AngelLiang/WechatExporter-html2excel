@@ -1,24 +1,32 @@
 # WechatExporter-html2excel
 
-基于 WechatExporter 导出的微信聊天记录，HTML转换Excel工具
+基于 [WechatExporter](https://github.com/BlueMatthew/WechatExporter) 导出微信聊天记录，HTML转换Excel工具
 
-使用 https://github.com/BlueMatthew/WechatExporter 工具导出HTML格式的聊天记录，然后转换为Excel格式，便于分析
+使用 WechatExporter 工具导出HTML格式的聊天记录后，转换为Excel格式，以便于分析聊天数据。
 
 ## 环境
 
-- Windows 10
+- Windows 10 OR Mac
 - Python 38+
 
 ## 使用说明
 
+0、由于导出的HTML是动态页面，需要下拉滚动才能加载后面的数据，所以需要先把导出的HTML另存为完整的HTML文件，再使用本工具转换成excel   
+1、点击打开文件，选择对应的聊天记录HTML文件
+2、点击转换，然后在HTML文件的同目录下可以看到转换的excel文件
 
-1、由于导出的HTML是动态页面，需要下拉滚动才能加载后面的数据，所以第一步需要先把导出的HTML另存为完整的HTML文件，然后放到 input_data 文件夹里
+![win](images/win.png)
 
-2、执行下面代码，即可在output文件夹里看到转换后的Excel文件
+![mac](images/mac.png)
 
-    poetry shell
-    python main.py
-    
+
+## 开发环境准备
+
+1、安装python38以上版本的python
+2、安装poetry包管理工具：`pip3 install poetry`
+3、在本项目的主目录下使用poetry搭建python虚拟环境：`poetry install`
+4、进入python虚拟环境：`poetry shell`
+5、运行`python main.py`启动程序
 
 ## 格式说明
 
