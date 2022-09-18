@@ -6,8 +6,9 @@ from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
 from PySide6 import QtCore, QtWidgets
+__VERSION__ = 'V0.1'
 
-
+APP_NAME = f'WechatExporter-html2excel {__VERSION__}'
 ILLEGAL_CHARACTERS_RE = re.compile(r'[\000-\010]|[\013-\014]|[\016-\037]')
 
 
@@ -71,6 +72,11 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
 
+        self.statusBar = QtWidgets.QStatusBar()
+        self.statusBar.showMessage('https://github.com/AngelLiang/WechatExporter-html2excel')
+        self.setStatusBar(self.statusBar)
+
+
     @QtCore.Slot()
     def html2excel(self):
         if not self.filepath:
@@ -98,7 +104,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication([])
 
     main_window = MainWindow()
-    main_window.setWindowTitle('WechatExporter-html2excel')
+    main_window.setWindowTitle(APP_NAME)
     main_window.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
     main_window.resize(500, 100)
     main_window.show()

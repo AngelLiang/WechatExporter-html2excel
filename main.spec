@@ -3,6 +3,7 @@
 
 block_cipher = None
 
+APP_NAME = 'WechatExporter-html2excel'
 
 a = Analysis(
     ['main.py'],
@@ -28,7 +29,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='main',
+    name=APP_NAME,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -45,9 +46,9 @@ exe = EXE(
 
 app = BUNDLE(
     exe,
-    name='WechatExporter-html2excel.app',
+    name=APP_NAME+'.app',
     icon=None,
-    console=True,
-    debug=True,
+    console=False,
+    debug=False,
     bundle_identifier=None,
 )
