@@ -13,7 +13,7 @@ ILLEGAL_CHARACTERS_RE = re.compile(r'[\000-\010]|[\013-\014]|[\016-\037]')
 
 # os.makedirs('input_data', exist_ok=True)
 # INPUT_PATH = glob.glob('input_data/*.html')
-OUTPUT_PATH = 'output'
+OUTPUT_PATH = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'output')
 
 os.makedirs(OUTPUT_PATH, exist_ok=True)
 
@@ -35,9 +35,11 @@ def html2excel_handle(filepath):
             text = ILLEGAL_CHARACTERS_RE.sub(r'', text)
         ws.append([item.next_sibling, item.text, text])
 
+    dirname = os.path.dirname(filepath)
     name = os.path.basename(filepath)
-    output_filepath = os.path.join(OUTPUT_PATH, name+'.xlsx')
+    output_filepath = os.path.join(dirname, name+'.xlsx')
     wb.save(output_filepath)
+    return output_filepath
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -76,7 +78,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.msgBox.setText('文件路径不能为空')
             self.msgBox.exec()
             return
-        html2excel_handle(self.filepath)
+        filepath = html2excel_handle(self.filepath)
+        self.msgBox = QtWidgets.QMessageBox(self)
+        self.msgBox.setText(f'转换完成:{filepath}')
+        self.msgBox.exec()
 
     @QtCore.Slot()
     def openFile(self):

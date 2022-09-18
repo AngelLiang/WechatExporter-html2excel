@@ -1,11 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
-import os
+
 
 block_cipher = None
 
+
 a = Analysis(
     ['main.py'],
-    pathex=[os.path.join(os.getcwd())],
+    pathex=[],
     binaries=[],
     datas=[],
     hiddenimports=[],
@@ -27,17 +28,26 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='WechatExporter-html2excel',
-    debug=True,
+    name='main',
+    debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+)
+
+app = BUNDLE(
+    exe,
+    name='WechatExporter-html2excel.app',
+    icon=None,
+    console=True,
+    debug=True,
+    bundle_identifier=None,
 )
