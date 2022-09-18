@@ -80,7 +80,7 @@ class MainWindow(QtWidgets.QMainWindow):
             return
         filepath = html2excel_handle(self.filepath)
         self.msgBox = QtWidgets.QMessageBox(self)
-        self.msgBox.setText(f'转换完成:{filepath}')
+        self.msgBox.setText(f'转换完成。输出路径为：{filepath}')
         self.msgBox.exec()
 
     @QtCore.Slot()
